@@ -1,25 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using MostSnake.Models;
 using System.Web.Http;
 
 namespace MostSnake.Controllers
 {
     public class MostSnakeController : ApiController
     {
-        public IHttpActionResult GetMostSnakeResult()
+        [HttpGet]
+        public IHttpActionResult GetMostSnakeResultInit()
         {
-            string result = "Some freaky result";
-            return Ok(result);
+            Player playerOne = new Player("Gorgony");
+            playerOne.PlayerAction = "NONE";
+
+            Player playerTwo = new Player("SvanRijswijk");
+            playerTwo.PlayerAction = "NONE";
+
+            MostSnakeResponse mostSnakeResponse = new MostSnakeResponse("INIT", playerOne, playerTwo);
+
+            return Ok(mostSnakeResponse);
         }
 
         [HttpGet]
-        public IHttpActionResult GetMostSnakeResultTest()
+        public IHttpActionResult GetMostSnakeResultUpdate()
         {
-            string result = "Some different result";
-            return Ok(result);
+            Player playerOne = new Player("Gorgony");
+            playerOne.PlayerAction = "RIGHT";
+
+            Player playerTwo = new Player("SvanRijswijk");
+            playerTwo.PlayerAction = "LEFT";
+
+            MostSnakeResponse mostSnakeResponse = new MostSnakeResponse("UPDATE", playerOne, playerTwo);
+
+            return Ok(mostSnakeResponse);
         }
     }
 }
